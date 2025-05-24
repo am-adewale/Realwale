@@ -1,5 +1,5 @@
 // API Configuration
-const API_KEY = '631e3c82fd16ffa992d3b7301f111354'; // Replace if needed
+const API_KEY = '631e3c82fd16ffa992d3b7301f111354';
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/';
 const POSTER_SIZE = 'w500';
@@ -15,51 +15,51 @@ const genreFiltersEl = document.getElementById('genre-filters');
 const themeToggleBtn = document.getElementById('theme-toggle-btn');
 const movieDetailsContentEl = document.getElementById('movie-details-content');
 
-// Sections
+
 const homeSection = document.getElementById('home-section');
 const movieDetailsSection = document.getElementById('movie-details-section');
 const searchResultsSection = document.getElementById('search-results-section');
 const watchlistSection = document.getElementById('watchlist-section');
 
-// Navigation
+
 const navLinks = document.querySelectorAll('nav ul li a');
 
 // State
 let currentGenres = [];
-let allMovies = []; // Store all movies for filtering
+let allMovies = []; // 
 let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
-// Initialize app when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
   console.log("Initializing AdeFlix...");
   
   try {
-    // Validate DOM elements
+    
     if (!trendingMoviesEl || !recommendedMoviesEl) {
       throw new Error("Critical elements missing");
     }
 
-    // Show loading states
+    
     showLoading(trendingMoviesEl);
     showLoading(recommendedMoviesEl);
 
-    // Setup UI and event listeners
+    
     showSection(homeSection);
     setupEventListeners();
 
-    // Load data with fallback
+    
     const [genres, trendingMovies, popularMovies] = await Promise.all([
       fetchGenres().catch(() => []),
       fetchTrendingMovies().catch(() => getFallbackMovies()),
       fetchPopularMovies().catch(() => getFallbackMovies())
     ]);
 
-    // Store all movies for filtering
+    
     allMovies = [...trendingMovies, ...popularMovies];
 
-    // Render content
+  
     populateGenreFilters(genres);
     renderMovies(trendingMoviesEl, trendingMovies);
     renderMovies(recommendedMoviesEl, popularMovies);
@@ -116,18 +116,18 @@ async function fetchMoviesByGenre(genreId) {
   return data.results || [];
 }
 
-// Genre Functions
+
 function populateGenreFilters(genres) {
   if (!genreFiltersEl || !genres.length) return;
 
-  // Add "All" option
+  
   const allOption = document.createElement('button');
   allOption.className = 'genre-btn active';
   allOption.textContent = 'All';
   allOption.dataset.genreId = '';
   genreFiltersEl.appendChild(allOption);
 
-  // Add genre options
+  
   genres.forEach(genre => {
     const button = document.createElement('button');
     button.className = 'genre-btn';
@@ -136,14 +136,13 @@ function populateGenreFilters(genres) {
     genreFiltersEl.appendChild(button);
   });
 
-  // Add event listeners
   genreFiltersEl.addEventListener('click', handleGenreFilter);
 }
 
 async function handleGenreFilter(e) {
   if (!e.target.classList.contains('genre-btn')) return;
 
-  // Update active state
+  
   genreFiltersEl.querySelectorAll('.genre-btn').forEach(btn => 
     btn.classList.remove('active'));
   e.target.classList.add('active');
@@ -155,7 +154,7 @@ async function handleGenreFilter(e) {
     showLoading(recommendedMoviesEl);
 
     if (genreId === '') {
-      // Show all movies
+      
       const [trendingMovies, popularMovies] = await Promise.all([
         fetchTrendingMovies(),
         fetchPopularMovies()
@@ -174,7 +173,7 @@ async function handleGenreFilter(e) {
   }
 }
 
-// UI Functions
+
 function renderMovies(container, movies) {
   if (!container) return;
   
@@ -204,7 +203,7 @@ function renderMovies(container, movies) {
     </div>
   `).join('');
 
-  // Add click handlers
+  
   container.querySelectorAll('.movie-card').forEach(card => {
     card.addEventListener('click', () => showMovieDetails(card.dataset.id));
   });
@@ -268,7 +267,7 @@ function showMovieDetails(movieId) {
         </div>
       `;
 
-      // Add event listeners
+      
       const addToWatchlistBtn = document.getElementById('add-to-watchlist');
       const backBtn = document.getElementById('back-btn');
 
@@ -307,7 +306,7 @@ function handleSearch() {
   searchMovies(query)
     .then(movies => {
       renderMovies(searchResultsEl, movies);
-      // Update page title or add search info
+      
       const searchInfo = document.createElement('div');
       searchInfo.className = 'search-info';
       searchInfo.innerHTML = `<h2>Search Results for "${escapeHtml(query)}" (${movies.length} found)</h2>`;
@@ -368,7 +367,7 @@ function removeFromWatchlist(movieId) {
   renderWatchlist();
 }
 
-// Helper Functions
+
 function showSection(section) {
   if (!section) return;
   
@@ -376,7 +375,7 @@ function showSection(section) {
     .forEach(s => s?.classList.add('hidden'));
   section.classList.remove('hidden');
 
-  // Update active navigation
+  
   navLinks.forEach(link => link.classList.remove('active'));
   const activeLink = Array.from(navLinks).find(link => {
     if (section === homeSection) return link.dataset.section === 'movies';
@@ -443,7 +442,7 @@ function getFallbackMovies() {
   ];
 }
 
-// Event Listeners
+
 function setupEventListeners() {
   // Search
   if (searchBtnEl) {
@@ -456,13 +455,13 @@ function setupEventListeners() {
     });
   }
 
-  // Navigation
+  
   navLinks.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const section = link.dataset.section;
       
-      // Remove search info if it exists
+      
       const searchInfo = document.querySelector('.search-info');
       if (searchInfo) searchInfo.remove();
       
@@ -476,11 +475,10 @@ function setupEventListeners() {
     });
   });
 
-  // Theme Toggle
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', toggleTheme);
     
-    // Apply saved theme
+  
     if (localStorage.getItem('darkTheme') === 'true') {
       document.body.classList.add('dark-theme');
       themeToggleBtn.classList.remove('fa-moon');
@@ -488,13 +486,13 @@ function setupEventListeners() {
     }
   }
 
-  // Global error handler
+  
   window.addEventListener('error', e => {
     console.error('Global error:', e.error);
     showError('An unexpected error occurred');
   });
 
-  // Handle image loading errors globally
+  
   document.addEventListener('error', e => {
     if (e.target.tagName === 'IMG') {
       handleImageError(e.target);
