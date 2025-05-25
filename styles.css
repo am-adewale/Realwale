@@ -131,7 +131,7 @@
       transform: scale(1.1);
     }
 
-   
+    /* Main Content */
     main {
       min-height: calc(100vh - 140px);
       padding: 2rem 0;
@@ -218,7 +218,7 @@
       color: #ffd700;
     }
 
-    
+    /* Genre Filter Sidebar */
     .genre-filter {
       position: fixed;
       left: -300px;
@@ -262,7 +262,7 @@
       transform: translateX(5px);
     }
 
-   
+    /* Utility Classes */
     .hidden {
       display: none !important;
     }
@@ -314,7 +314,7 @@
       opacity: 0.7;
     }
 
-   
+    /* Buttons */
     .btn {
       background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
       border: none;
@@ -412,7 +412,7 @@
       flex-wrap: wrap;
     }
 
-    
+    /* Notifications */
     .error-message, .success-message {
       position: fixed;
       top: 100px;
@@ -445,7 +445,7 @@
       margin-top: 4rem;
     }
 
-   
+    /* Filter Toggle Button */
     .filter-toggle {
       position: fixed;
       left: 20px;
