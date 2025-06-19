@@ -6,7 +6,7 @@
 
     body {
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      /* background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); */
       color: #ffffff;
       min-height: 100vh;
       transition: all 0.3s ease;
@@ -190,6 +190,44 @@
       transform: scale(1.1);
     }
 
+    .remove-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .movie-card:hover .remove-overlay {
+      opacity: 1;
+    }
+
+    .remove-btn {
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    .remove-btn:hover {
+      background: #ff3742;
+      transform: scale(1.1);
+    }
+
     .movie-info {
       padding: 1rem;
     }
@@ -208,14 +246,23 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.9rem;
-      opacity: 0.8;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .type-badge {
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
     }
 
     .rating {
       display: flex;
       align-items: center;
       gap: 0.3rem;
-      color: #ffd700;
     }
 
     /* Genre Filter Sidebar */
@@ -341,6 +388,18 @@
     .btn-outline {
       background: transparent;
       border: 2px solid #4ecdc4;
+      color: #4ecdc4;
+    }
+
+    .btn-danger {
+      background: #ff4757;
+      color: white;
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background: #ff3742;
+      transform: translateY(-2px);
     }
 
     /* Movie Details */
@@ -383,6 +442,12 @@
       padding: 0.5rem 1rem;
       border-radius: 20px;
       font-size: 0.9rem;
+      margin-right: 1rem;
+    }
+
+    .seasons {
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4) !important;
+      color: white !important;
     }
 
     .genres {
@@ -470,7 +535,7 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       .container {
-        padding: 0 1rem;
+        padding: 0 10px;
       }
 
       header .container {
@@ -492,19 +557,209 @@
       }
 
       .genre-filter {
+        position: static;
         width: 100%;
-        left: -100%;
+        margin-top: 1rem;
       }
 
       .details-content h2 {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
 
       .movie-info-details {
-        gap: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
       }
 
       .action-buttons {
         flex-direction: column;
+        gap: 0.5rem;
       }
+
+      /* Modal responsive */
+      .modal-content {
+        max-width: 95vw;
+        max-height: 95vh;
+        margin: 10px;
+      }
+
+      .modal-body {
+        padding: 1rem;
+      }
+
+      .trailer-thumbnails {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.5rem;
+      }
+
+      .trailer-thumbnail img {
+        height: 70px;
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header h3 {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #ffffff;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .trailer-video {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin-bottom: 1rem;
+    }
+
+    .trailer-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .trailer-list {
+      margin-top: 1rem;
+    }
+
+    .trailer-list h4 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .trailer-thumbnails {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .trailer-thumbnail {
+      position: relative;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .trailer-thumbnail:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .trailer-thumbnail img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+    }
+
+    .trailer-thumbnail-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .trailer-thumbnail:hover .trailer-thumbnail-overlay {
+      opacity: 1;
+    }
+
+    .trailer-thumbnail-overlay i {
+      color: #ffffff;
+      font-size: 1.5rem;
+    }
+
+    .trailer-thumbnail p {
+      color: #ffffff;
+      font-size: 0.8rem;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      margin: 0;
+      text-align: center;
+    }
+
+    .no-trailer {
+      text-align: center;
+      padding: 2rem;
+      color: #ffffff;
+    }
+
+    .no-trailer i {
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    .no-trailer h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .no-trailer p {
+      color: rgba(255, 255, 255, 0.7);
     }

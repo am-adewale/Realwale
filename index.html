@@ -18,14 +18,14 @@
       <nav>
         <ul>
           <li><a href="#" class="active" data-section="movies">Movies</a></li>
-          <li><a href="#" data-section="mevies">Series</a></li>
+          <li><a href="#" data-section="series">Series</a></li>
           <li><a href="#" data-section="tv-shows">TV Shows</a></li>
           <li><a href="#" data-section="watchlist">My Watchlist</a></li>
         </ul>
       </nav>
       <div class="search-user">
         <div class="search">
-          <input type="text" id="search-input" placeholder="Search for movies...">
+          <input type="text" id="search-input" placeholder="Search for movies and series...">
           <i class="fas fa-search" id="search-btn"></i>
         </div>
         <div class="theme-toggle">
@@ -85,6 +85,45 @@
           <!-- Watchlist movies will be populated here -->
         </div>
       </section>
+
+      <!-- Series Section -->
+      <section id="series-section" class="hidden">
+        <!-- Trending Series Section -->
+        <div class="section-header">
+          <h2>Trending Series</h2>
+        </div>
+        <div class="movie-slider" id="trending-series">
+          <!-- Trending series will be populated here -->
+        </div>
+
+        <!-- Recommended Series Section -->
+        <div class="section-header">
+          <h2>Recommended Series</h2>
+        </div>
+        <div class="movie-slider" id="recommended-series">
+          <!-- Recommended series will be populated here -->
+        </div>
+      </section>
+
+      <!-- Trailer Modal -->
+      <div id="trailer-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 id="trailer-title">Movie Trailer</h3>
+            <button class="close-btn" onclick="closeTrailerModal()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="trailer-container">
+              <!-- Trailer iframe will be inserted here -->
+            </div>
+            <div id="trailer-list" class="trailer-list">
+              <!-- Additional trailers will be listed here -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
