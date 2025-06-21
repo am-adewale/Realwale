@@ -4,11 +4,19 @@
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: 'Roboto', sans-serif;
   background: #f0f2f5;
   color: #333333;
-  min-height: 100vh;
   transition: all 0.3s ease;
 }
 
@@ -173,8 +181,9 @@ body.dark-theme .theme-toggle:hover, body.dark-theme .user:hover {
 
 /* Main Content */
 main {
-  min-height: calc(100vh - 140px);
-  padding: 2rem 0;
+  flex: 1;
+  padding: 0;
+  margin: 0;
 }
 
 .section-header {
@@ -575,13 +584,14 @@ body.dark-theme .genre-btn.active {
   to { transform: translateX(0); }
 }
 
-/* Footer */
+/* Footer - Fixed to remove bottom spacing */
 footer {
   background: rgba(0, 0, 0, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem 0;
+  padding: 1rem 0;
   text-align: center;
-  margin-top: 4rem;
+  margin: 0;
+  width: 100%;
 }
 
 /* Filter Toggle Button */
@@ -608,6 +618,19 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
   .container {
     padding: 0 10px;
   }
@@ -628,12 +651,18 @@ footer {
   .movie-slider, .movie-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .movie-slider:last-child,
+  .movie-grid:last-child {
+    margin-bottom: 0;
   }
 
   .genre-filter {
     position: static;
     width: 100%;
-    margin-top: 1rem;
+    margin: 1rem 0 0 0;
   }
 
   .details-content h2 {
@@ -668,6 +697,21 @@ footer {
 
   .trailer-thumbnail img {
     height: 70px;
+  }
+
+  main {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+  }
+
+  footer {
+    margin: 0;
+    padding: 1rem 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    width: 100%;
   }
 }
 
@@ -863,4 +907,10 @@ body.dark-theme .trailer-thumbnail p {
 
 .no-trailer p {
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Remove extra space below the last slider/grid */
+.movie-slider:last-child,
+.movie-grid:last-child {
+  margin-bottom: 0;
 }
