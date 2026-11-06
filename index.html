@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realwale</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="stage">
+    <aside class="rail" aria-label="Shortcuts">
+      <div class="rail-brand" aria-hidden="true">R</div>
+      <button type="button" class="rail-btn active" data-nav data-section="movies" aria-label="Movies">
+        <i class="fas fa-home"></i>
+      </button>
+      <button type="button" class="rail-btn" data-nav data-section="series" aria-label="Series">
+        <i class="fas fa-tv"></i>
+      </button>
+      <button type="button" class="rail-btn" data-nav data-section="watchlist" aria-label="Watchlist">
+        <i class="fas fa-heart"></i>
+      </button>
+      <button type="button" class="rail-btn" data-nav data-section="tv-shows" aria-label="TV Shows">
+        <i class="fas fa-video"></i>
+      </button>
+    </aside>
+
+    <div class="panel">
+      <header class="topbar">
+        <div class="topbar-start">
+          <button type="button" class="icon-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+          </button>
+          <p class="brand-mobile">Realwale</p>
+          <form class="search" id="search-form" role="search">
+            <button type="button" class="search-icon" id="search-btn" aria-label="Search">
+              <i class="fas fa-search"></i>
+            </button>
+            <input type="search" id="search-input" placeholder="Search movies" autocomplete="off">
+          </form>
+        </div>
+
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#movies" class="active" data-nav data-section="movies">Movies</a></li>
+            <li><a href="#series" data-nav data-section="series">TV Series</a></li>
+            <li><a href="#tv-shows" data-nav data-section="tv-shows">TV Shows</a></li>
+            <li><a href="#watchlist" data-nav data-section="watchlist">Watchlist</a></li>
+          </ul>
+        </nav>
+
+        <div class="top-actions">
+          <button type="button" class="icon-btn notify-btn" data-nav data-section="watchlist" aria-label="Open watchlist">
+            <i class="fas fa-bell"></i>
+            <span id="watchlist-count" class="count-badge is-empty">0</span>
+          </button>
+          <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle color theme">
+            <i class="fas fa-moon" id="theme-toggle-btn"></i>
+          </button>
+          <div class="profile">
+            <span class="avatar" aria-hidden="true">R</span>
+            <span class="profile-copy">
+              <strong>Guest</strong>
+              <small>Realwale</small>
+            </span>
+            <i class="fas fa-chevron-down profile-caret" aria-hidden="true"></i>
+          </div>
+        </div>
+      </header>
+
+      <div id="genre-bar" class="genre-bar">
+        <div class="filter-options" id="genre-filters"></div>
+      </div>
+
+      <main>
+        <section id="home-section" class="active-section">
+          <div class="home-top">
+            <div class="trailer-col">
+              <div class="block-head">
+                <h2>New trailer</h2>
+                <span class="today-pill">Today</span>
+              </div>
+              <div class="trailer-stack" id="trending-movies"></div>
+            </div>
+            <article id="featured-hero" class="hero" aria-live="polite">
+              <div class="hero-copy">
+                <div class="hero-kicker"><i class="fas fa-fire"></i> Now trending</div>
+                <h2>Loading featured title</h2>
+                <p>Trending movies will appear here.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="home-bottom">
+            <div class="saved-col">
+              <div class="block-head">
+                <h2>Your list</h2>
+                <button type="button" class="text-btn" data-nav data-section="watchlist">See all</button>
+              </div>
+              <div id="home-saved" class="saved-list"></div>
+            </div>
+            <div class="suggest-col">
+              <div class="block-head">
+                <h2>You might like</h2>
+                <button type="button" class="text-btn" id="see-all-movies">See all</button>
+              </div>
+              <div class="poster-row" id="recommended-movies"></div>
+              <div class="load-more-container">
+                <button id="load-more-movies" class="btn load-more-btn" type="button">
+                  <i class="fas fa-plus"></i>
+                  Load More Movies
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="movie-details-section" class="hidden">
+          <div id="movie-details-content"></div>
+        </section>
+
+        <section id="search-results-section" class="hidden">
+          <div class="block-head">
+            <h2 id="search-heading">Search results</h2>
+          </div>
+          <div class="movie-grid" id="search-results"></div>
+        </section>
+
+        <section id="watchlist-section" class="hidden">
+          <div class="block-head">
+            <h2>My watchlist</h2>
+          </div>
+          <div class="movie-grid" id="watchlist-movies"></div>
+        </section>
+
+        <section id="series-section" class="hidden">
+          <div class="home-top">
+            <div class="trailer-col">
+              <div class="block-head">
+                <h2>New episodes</h2>
+                <span class="today-pill">Today</span>
+              </div>
+              <div class="trailer-stack" id="trending-series"></div>
+            </div>
+            <article id="series-hero" class="hero" aria-live="polite">
+              <div class="hero-copy">
+                <div class="hero-kicker"><i class="fas fa-fire"></i> Now trending</div>
+                <h2>Loading featured series</h2>
+                <p>Trending series will appear here.</p>
+              </div>
+            </article>
+          </div>
+          <div class="block-head spaced">
+            <h2>You might like</h2>
+          </div>
+          <div class="poster-row" id="recommended-series"></div>
+        </section>
+
+        <div id="trailer-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 id="trailer-title">Movie Trailer</h3>
+              <button class="close-btn" type="button" onclick="closeTrailerModal()" aria-label="Close trailer">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="trailer-container"></div>
+              <div id="trailer-list" class="trailer-list"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>&copy; 2026 Realwale</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
